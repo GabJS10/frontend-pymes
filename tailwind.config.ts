@@ -12,6 +12,15 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+
+      backgroundImage: {
+        "close-menu": "url('/static/images/icon-close.svg')",
+        "open-menu": "url('/static/images/icon-hamburger.svg')",
+      },
+
+      fontFamily: {
+        roboto: ["var(--font-roboto)"],
+      },
     },
   },
   plugins: [],
