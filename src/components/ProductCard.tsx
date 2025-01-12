@@ -6,24 +6,20 @@ import { CiCircleRemove } from "react-icons/ci";
 import { Item, addToCart } from "@/app/cart/action";
 import { CartContext } from "@/app/cart/CartProvider";
 import { useParams } from "next/navigation";
-interface ProductCardProps {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-}
+import { ProductType } from "@/types/products.types";
+
 export const ProductCard = ({
   id,
   name,
   price,
   description,
   image,
-}: ProductCardProps) => {
+}: ProductType) => {
   const params = useParams();
   const [open, setOpen] = React.useState(false);
   const [quantity, setQuantity] = React.useState(1);
   const { addCart } = useContext(CartContext);
+
   const handleIncrement = () => {
     setQuantity((prevQuantity) => prevQuantity + 1);
   };
@@ -53,15 +49,17 @@ export const ProductCard = ({
   return (
     <>
       <span onClick={() => setOpen(true)} className="cursor-pointer">
-        <div className="bg-white rounded-lg shadow-lg p-4 flex items-center space-x-4">
-          <img src={image} alt={name} className="w-16 h-16 rounded-md" />
-          <div className="flex-1">
-            <h3 className="text-lg font-semibold">{name}</h3>
-            <p className="text-gray-600 text-sm">{description}</p>
-            <p className="text-gray-900 font-bold mt-2">
-              ${price.toLocaleString()}
-            </p>
-          </div>
+        <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition-shadow duration-300">
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-40 object-cover rounded-md mb-4"
+          />
+          <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
+          <p className="text-sm text-gray-600 mt-1">{description}</p>
+          <p className="text-gray-900 font-bold mt-2">
+            ${price.toLocaleString()}
+          </p>
         </div>
       </span>
 
@@ -71,37 +69,39 @@ export const ProductCard = ({
           setQuantity(1);
           setOpen(false);
         }}
+        style="bg-white p-6 rounded-lg shadow-2xl transition-transform transform scale-100"
       >
-        <div className="flex flex-col space-y-4">
-          <h1 className="text-2xl font-bold">{name}</h1>
-          <div className="flex justify-between">
-            <p className="text-lg">{description}</p>
-            <p className="text-lg">${price.toLocaleString()}</p>
-          </div>
-        </div>
-
-        <div>
-          <img src={image} alt={name} className="mt-4 w-96 h-96" />
-        </div>
-
-        <div className="flex space-x-4 mt-4">
-          {/* Botón con borde y dos iconos */}
-          <div className="flex items-center w-full h-14 border border-gray-300 rounded-md p-2 space-x-2 flex-1">
-            <button onClick={handleDecrement}>
-              <CiCircleRemove className="text-2xl text-gray-500" />
-            </button>
-            <p className="text-lg font-medium flex-grow text-center">
-              {quantity}
+        <h1 className="text-2xl font-bold text-gray-800">{name}</h1>
+        <div className="mt-4 flex items-center space-x-4">
+          <img
+            src={image}
+            alt={name}
+            className="w-32 h-32 object-cover rounded-md"
+          />
+          <div>
+            <p className="text-sm text-gray-600">{description}</p>
+            <p className="text-lg font-semibold text-gray-900 mt-2">
+              ${price.toLocaleString()}
             </p>
-            <button onClick={handleIncrement}>
-              <IoMdAddCircle className="text-2xl text-gray-500" />
-            </button>
           </div>
-
-          {/* Botón azul sólido */}
+        </div>
+        <div className="mt-4 flex items-center space-x-4">
+          <button
+            onClick={handleDecrement}
+            className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600"
+          >
+            <CiCircleRemove className="text-2xl" />
+          </button>
+          <span className="text-lg font-medium">{quantity}</span>
+          <button
+            onClick={handleIncrement}
+            className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600"
+          >
+            <IoMdAddCircle className="text-2xl" />
+          </button>
           <button
             onClick={handleAddToCart}
-            className="w-full h-14 rounded-md bg-blue-500 hover:bg-blue-700 text-white font-bold text-lg flex items-center justify-center flex-1"
+            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg text-lg"
           >
             Agregar al carrito
           </button>

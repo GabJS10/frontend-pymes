@@ -1,7 +1,10 @@
-import React from "react";
+"use client";
 import { CardStore } from "./CardStore";
 import { BACKEND_URL } from "@/constants/constants";
 import { UserBussines } from "@/types/user_bussines.types";
+import { StoresContext } from "@/app/providers/StoresProvider";
+import { useContext } from "react";
+
 async function getData(): Promise<UserBussines[]> {
   const res = await fetch(`${BACKEND_URL}/user-bussiness`, {
     cache: "no-cache",
@@ -14,27 +17,29 @@ async function getData(): Promise<UserBussines[]> {
   return await res.json();
 }
 
-export const GridStores = async () => {
-  const data = await getData();
-  console.log(data);
+export const GridStores = () => {
+  const { stores } = useContext(StoresContext);
 
-  const stores = data.map((store) => {
-    return {
-      id: store.id,
-      nameStore: store.name,
-      image: store.image_profile || "",
-      time: store.delivery_time,
-      deliveryCost: store.shipping_cost,
-      rating: store.rating || 0,
-    };
-  });
   return (
-    <div className="bg-gray-300p-8 rounded-lg">
-      <h2 className="text-center text-black text-xl mb-6">TIENDAS</h2>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {stores.map((store) => (
-          <CardStore key={store.id} store={store} />
-        ))}
+    <div className="bg-white p-8 rounded-lg shadow-xl">
+      <h2 className="text-center text-gray-800 text-3xl font-bold mb-6">
+        Nuestras Tiendas
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {stores.length > 0 &&
+          stores.map((store) => (
+            <CardStore
+              key={store.id}
+              store={{
+                id: store.id,
+                nameStore: store.name,
+                time: store.delivery_time,
+                deliveryCost: store.shipping_cost,
+                qualification: store.qualification,
+                image: store.image_cover,
+              }}
+            />
+          ))}
       </div>
     </div>
   );

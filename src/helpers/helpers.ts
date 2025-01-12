@@ -1,7 +1,7 @@
 import { Cart } from "@/app/cart/action";
 import { UserBussines } from "@/types/user_bussines.types";
 import {FormDataBuy} from "@/types/form.register.types";
-
+import { ProductType } from "@/types/products.types";
  function getProfileData(data: Partial<UserBussines>) {
     return {
         name: data.name || "",
@@ -24,7 +24,7 @@ function getPrincipalData(data: Partial<UserBussines>) {
         description: data.description || undefined,
         close_hours: data.close_hours || undefined,
         open_hours: data.open_hours || undefined,
-        rating: data.rating || undefined,
+        rating: data.qualification || undefined,
         delivery_time: data.delivery_time || 0,
         image_profile: data.image_profile || undefined,
         image_cover: data.image_cover || undefined
@@ -62,4 +62,24 @@ function sendWhatsapp(phoneNumber: string, items: Cart | null, orderDetails: For
 }
 
 
-export { getProfileData , getPrincipalData , sendWhatsapp };
+function filterProductsBySection(products: ProductType[], section: string[]) {
+    
+    //this function will filter the products by section
+
+    if (section.length === 0) {
+        return products;
+    }
+
+    if (products[0].sections) {
+                
+        
+        return products.filter((product) => {
+            return product.sections?.some((sectionItem) => section.includes(sectionItem.section.name));
+        });
+    }
+    
+    
+} 
+ 
+
+export { getProfileData , getPrincipalData , sendWhatsapp, filterProductsBySection };

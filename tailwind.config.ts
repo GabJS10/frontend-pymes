@@ -8,6 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        fadeIn: {
+          "0%": { opacity: "0", transform: "translateY(20px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -20,6 +26,9 @@ const config: Config = {
 
       fontFamily: {
         roboto: ["var(--font-roboto)"],
+      },
+      animation: {
+        fadeIn: "fadeIn 0.4s ease-out",
       },
     },
   },

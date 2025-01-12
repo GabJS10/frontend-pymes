@@ -25,7 +25,7 @@
   "image_cover": null
 }
 */
-
+import { Sections } from "./products.types"
 import { Roles } from "./form.register.types"
 
 export type UserBussines = {
@@ -45,9 +45,11 @@ export type UserBussines = {
     description: string | null
     close_hours: string | null
     open_hours: string | null
-    rating: number | null
     delivery_time: string | null
     image_profile: string | null
     image_cover: string | null
+    qualification: number | null
 
 }
+
+export type store = UserBussines & {sections: Sections[]}

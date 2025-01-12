@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 import { DashboardContent } from "./DashboardContent";
 import { BACKEND_URL, View } from "@/constants/constants";
 import { UserBussines } from "@/types/user_bussines.types";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { useSession } from "next-auth/react";
-
+import LoadingSpinner from "./LoadingSpinner";
+import { NavBarStore } from "./NavBarStore";
+import { Footer } from "./Footer";
 //fetch user data
 
 const fetchUserData = async (
@@ -19,7 +20,6 @@ const fetchUserData = async (
     },
   });
   const data: UserBussines = await res.json();
-  console.log(data);
 
   return data;
 };
@@ -30,21 +30,30 @@ export const Dashboard = () => {
   const [image_profile, setImageProfile] = React.useState<string>(
     "static/images/profile_base_image.png"
   );
+  const [loading, setLoading] = React.useState(false);
   const { data: session, status } = useSession();
+
   useEffect(() => {
     //use the getSession function from NextAuth
 
     const getSession = async () => {
-      if (session && status === "authenticated") {
-        const token = session.backendTokens.token;
-        const id = session.user.id;
-        if (token && id) {
-          const userData = await fetchUserData(id, token);
-          setData(userData);
-          setImageProfile(
-            userData.image_profile ? userData.image_profile : image_profile
-          );
+      setLoading(true);
+      try {
+        if (session && status === "authenticated") {
+          const token = session.backendTokens.token;
+          const id = session.user.id;
+          if (token && id) {
+            const userData = await fetchUserData(id, token);
+            setData(userData);
+            setImageProfile(
+              userData.image_profile ? userData.image_profile : image_profile
+            );
+          }
         }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -57,76 +66,49 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="flex min-h-screen h-min bg-gray-100 p-14">
-        {/* Sidebar */}
-        <div className="w-1/4 bg-white p-4 rounded-lg shadow-md">
-          <div className="flex items-center mb-6">
-            <div className="w-16 h-16 rounded-full bg-gray-300">
+      {loading && <LoadingSpinner />}
+      <div className="min-h-screen bg-gray-50">
+        <NavBarStore />
+        <div className="flex h-full px-10 py-8 gap-8">
+          {/* Sidebar */}
+          <div className="w-1/4 bg-white rounded-lg shadow-md p-6">
+            <div className="flex items-center mb-6">
               <img
                 src={image_profile}
                 alt="Profile"
-                className="w-full h-full rounded-full"
+                className="w-16 h-16 rounded-full object-cover shadow"
               />
+              <div className="ml-4">
+                <h2 className="text-lg font-semibold text-gray-800">
+                  {data.name}
+                </h2>
+                <p className="text-sm text-gray-500">Mi perfil</p>
+              </div>
             </div>
-            <div className="ml-4">
-              <p className="text-lg font-semibold">{data.name}</p>
-              <p className="text-sm text-gray-500">Mi perfil</p>
-            </div>
+            <ul className="space-y-4">
+              {[
+                { label: "Ajustes de cuenta", view: View.profile },
+                { label: "Ajustes página principal", view: View.principal },
+                { label: "Tus productos", view: View.productos },
+                { label: "Métricas", view: null },
+                { label: "Otros ajustes", view: null },
+              ].map((item, index) => (
+                <li key={index}>
+                  <button
+                    onClick={() => item.view && setView(item.view)}
+                    className="w-full text-left text-gray-700 font-medium hover:bg-gray-100 px-4 py-2 rounded-lg transition"
+                  >
+                    {item.label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul>
-            <li className="mb-3">
-              <button
-                className="flex items-center text-gray-700 hover:text-gray-900
-                border-b border-gray-200
-                "
-                onClick={() => setView(View.profile)}
-              >
-                Ajustes de cuenta
-              </button>
-            </li>
-            <li className="mb-3">
-              <button
-                className="flex items-center text-gray-700 hover:text-gray-900
-                border-b border-gray-200
-                "
-                onClick={() => setView(View.principal)}
-              >
-                Ajustes pagina principal
-              </button>
-            </li>
-            <li className="mb-3">
-              <button
-                className="flex items-center text-gray-700 hover:text-gray-900
-                border-b border-gray-200
-                "
-                onClick={() => setView(View.productos)}
-              >
-                Tus productos
-              </button>
-            </li>
-            <li className="mb-3">
-              <button
-                className="flex items-center text-gray-700 hover:text-gray-900
-                border-b border-gray-200
-                "
-              >
-                Metricas
-              </button>
-            </li>
-            <li className="mb-3">
-              <button
-                className="flex items-center text-gray-700 hover:text-gray-900
-                border-b border-gray-200
-                "
-              >
-                Otros ajustes
-              </button>
-            </li>
-          </ul>
-        </div>
 
-        {/* Main content */}
-        <DashboardContent data={data} view={view} />
+          {/* Main Content */}
+          <DashboardContent data={data} view={view} />
+        </div>
+        <Footer />
       </div>
     </>
   );

@@ -4,35 +4,33 @@ type Props = {
   open: boolean;
   onClose: () => void;
   children: React.ReactNode;
+  style?: string;
 };
 
-export const Modal = ({ open, onClose, children }: Props) => {
+export const Modal = ({ open, onClose, children, style }: Props) => {
   return (
-    <>
+    <div
+      onClick={onClose}
+      className={`fixed inset-0 flex justify-center items-center bg-black/30 transition-opacity ${
+        open ? "visible opacity-100" : "invisible opacity-0"
+      }`}
+    >
       <div
-        onClick={onClose}
-        className={`
-        fixed inset-0 flex justify-center items-center transition-colors
-        ${open ? "visible bg-black/20" : "invisible"}
-      `}
+        onClick={(e) => e.stopPropagation()}
+        className={`${
+          style || "bg-white rounded-lg shadow-xl p-8 transition-transform"
+        } max-w-[90%] max-h-[90%] overflow-auto ${
+          open ? "scale-100" : "scale-95"
+        }`}
       >
-        {/* modal */}
-        <div
-          onClick={(e) => e.stopPropagation()}
-          className={`
-          bg-white rounded-xl shadow p-6 transition-all
-          ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}
-        `}
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-red-500 focus:outline-none"
         >
-          <button
-            onClick={onClose}
-            className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600"
-          >
-            X
-          </button>
-          {children}
-        </div>
+          ✕
+        </button>
+        {children}
       </div>
-    </>
+    </div>
   );
 };

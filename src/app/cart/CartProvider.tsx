@@ -1,5 +1,6 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
+
 import {
   Cart,
   getCart,
@@ -9,7 +10,9 @@ import {
   removeFromCart as removeTheCart,
   removeOneElementFromTheCart as clearOneElementFromTheCart,
 } from "./action";
+
 import { usePathname } from "next/navigation";
+
 export const CartContext = createContext({
   cart: {} as Cart | null,
   addCart: (idStore: number, item: Item) => {},

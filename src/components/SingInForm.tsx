@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { signIn } from "next-auth/react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import LoadingSpinner from "./LoadingSpinner";
 type Inputs = {
   email: string;
   password: string;
@@ -11,26 +12,35 @@ type Inputs = {
 
 export const SingInForm = () => {
   const { register, handleSubmit } = useForm<Inputs>();
+  const [loading, setLoading] = React.useState(false);
   const router = useRouter();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    const res = await signIn("credentials", {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    });
+    setLoading(true);
+    try {
+      const res = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
 
-    if (res?.error) {
-      toast.error("Email o contraseña incorrectos");
-    }
+      if (res?.error) {
+        toast.error("Email o contraseña incorrectos");
+      }
 
-    if (res?.ok) {
-      router.push("/store");
+      if (res?.ok) {
+        router.refresh();
+      }
+    } catch (error) {
+      toast.error("Error al iniciar sesion");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <>
+      {loading && <LoadingSpinner />}
       <div className="min-h-screen flex items-center justify-center w-full bg-orange-500">
         <div className="bg-white dark:bg-gray-900 shadow-md rounded-lg px-8 py-6 max-w-md">
           <h2 className="text-2xl font-bold text-center mb-4 dark:text-gray-200">

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { Item } from "@/app/cart/action";
 import { CartContext } from "@/app/cart/CartProvider";
@@ -6,15 +6,22 @@ import { CartContext } from "@/app/cart/CartProvider";
 export const CartItem = ({ item }: { item: Item }) => {
   const { removeCart, addCart, removeOneElementFromTheCart } =
     useContext(CartContext);
+  const [idStore, setIdStore] = useState(0);
+
+
+  useEffect(() => {
+    setIdStore(JSON.parse(localStorage.getItem("cart") as string)["idStore"]);
+  }, []);
 
   const handleDecrement = () => {
+    
     if (item.quantity > 1) {
-      removeCart(item);
+      removeCart(idStore,item);
     }
   };
 
   const handleIncrement = () => {
-    addCart(item);
+    addCart(idStore,item);
   };
 
   return (
@@ -54,7 +61,7 @@ export const CartItem = ({ item }: { item: Item }) => {
       {/* Borrar y Total */}
       <div className="flex items-center space-x-4">
         <button
-          onClick={() => removeOneElementFromTheCart(item)}
+          onClick={() => removeOneElementFromTheCart(idStore,item)}
           className="text-gray-400 hover:text-red-500"
         >
           <FiTrash2 size={20} />

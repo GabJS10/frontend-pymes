@@ -1,16 +1,21 @@
 import { BACKEND_URL } from "@/constants/constants";
-import { UserBussines } from "@/types/user_bussines.types";
+import { UserBussines, store } from "@/types/user_bussines.types";
 import { ProductType } from "@/types/products.types";
 import { MarketplaceBody } from "@/components/MarketplaceBody";
-const fetchStore = async (id: number): Promise<UserBussines> => {
-  const response = await fetch(`${BACKEND_URL}/user-bussiness/${id}`);
+const fetchStore = async (id: number): Promise<store> => {
+  const response = await fetch(`${BACKEND_URL}/user-bussiness/${id}`, {
+    cache: "no-cache",
+  });
   const store = await response.json();
   return store;
 };
 
 const fetchProducts = async (id: number): Promise<ProductType[]> => {
-  const response = await fetch(`${BACKEND_URL}/products/all/${id}`);
+  const response = await fetch(`${BACKEND_URL}/products/all/${id}`, {
+    cache: "no-cache",
+  });
   const products = await response.json();
+
   return products.products;
 };
 
