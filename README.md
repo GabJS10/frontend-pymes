@@ -57,12 +57,6 @@ This is the front-end project for the "SME back-end" API. A virtual store focuse
 
 
 
-![Captura de pantalla 2025-01-12 103824](https://github.com/user-attachments/assets/feab5fe0-198e-426c-8477-7d7e20abf941)
-
-
-
-
-
 
 ![Captura de pantalla 2025-01-12 103835](https://github.com/user-attachments/assets/5bad4eba-a38c-4180-bfb4-8429202bec52)
 
