@@ -21,6 +21,7 @@ const fetchQualification = async ({
     {
       method: "PATCH",
       headers: {
+        Cookie: `${document.cookie}`,
         "Content-Type": "application/json",
       },
       credentials: "include",
