@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { BACKEND_URL } from "@/constants/constants";
+import { cookies } from "next/headers";
 type Props = {
   qualification: number | null;
   setQualification: (value: number) => void;
@@ -22,6 +23,7 @@ const fetchQualification = async ({
       method: "PATCH",
       credentials: "include",
       headers: {
+        Cookie: cookies().toString(),
         "Content-Type": "application/json",
       },
 
