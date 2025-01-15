@@ -139,14 +139,13 @@ export const StoreInfo = ({
         <Modal
           open={openStarsQualification}
           onClose={() => setOpenStarsQualification(false)}
-          children={
-            <StarRating
-              qualification={userQualification}
-              setQualification={setUserQualification}
-            />
-          }
           style="bg-gradient-to-r from-gray-800 via-gray-900 to-black shadow-lg rounded-lg shadow-lg p-6 transition-all transform"
-        />
+        >
+          <StarRating
+            qualification={userQualification}
+            setQualification={setUserQualification}
+          />
+        </Modal>
       )}
     </>
   );
