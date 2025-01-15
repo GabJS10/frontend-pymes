@@ -1,27 +1,26 @@
-import React, { useState, useContext,useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { FiTrash2 } from "react-icons/fi";
 import { Item } from "@/app/cart/action";
 import { CartContext } from "@/app/cart/CartProvider";
+import { getImageUrl } from "@/helpers/helpers";
 
 export const CartItem = ({ item }: { item: Item }) => {
   const { removeCart, addCart, removeOneElementFromTheCart } =
     useContext(CartContext);
   const [idStore, setIdStore] = useState(0);
 
-
   useEffect(() => {
     setIdStore(JSON.parse(localStorage.getItem("cart") as string)["idStore"]);
   }, []);
 
   const handleDecrement = () => {
-    
     if (item.quantity > 1) {
-      removeCart(idStore,item);
+      removeCart(idStore, item);
     }
   };
 
   const handleIncrement = () => {
-    addCart(idStore,item);
+    addCart(idStore, item);
   };
 
   return (
@@ -29,7 +28,7 @@ export const CartItem = ({ item }: { item: Item }) => {
       {/* Información del producto */}
       <div className="flex items-center space-x-4">
         <img
-          src={item.image}
+          src={getImageUrl(item.image)}
           alt="Producto"
           width={80}
           height={80}
@@ -61,7 +60,7 @@ export const CartItem = ({ item }: { item: Item }) => {
       {/* Borrar y Total */}
       <div className="flex items-center space-x-4">
         <button
-          onClick={() => removeOneElementFromTheCart(idStore,item)}
+          onClick={() => removeOneElementFromTheCart(idStore, item)}
           className="text-gray-400 hover:text-red-500"
         >
           <FiTrash2 size={20} />

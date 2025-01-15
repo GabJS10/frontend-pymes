@@ -9,7 +9,7 @@ import TomSelect from "tom-select";
 import toast from "react-hot-toast";
 import { RxUpdate } from "react-icons/rx";
 import { MdDelete } from "react-icons/md";
-
+import { getImageUrl } from "@/helpers/helpers";
 type Inputs = {
   name: string;
   productsID: number[];
@@ -191,7 +191,7 @@ export const DashboardProducts = () => {
             className="flex items-center border border-gray-200 bg-white p-5 rounded-xl shadow-lg transition duration-300 transform hover:scale-102 hover:shadow-2xl"
           >
             <img
-              src={`https://${product.image}`}
+              src={getImageUrl(product.image)}
               alt="Product"
               className="w-20 h-20 object-cover rounded-lg mr-6 transition duration-300 transform hover:scale-105"
             />

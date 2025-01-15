@@ -7,7 +7,7 @@ import { Item } from "@/app/cart/action";
 import { CartContext } from "@/app/cart/CartProvider";
 import { useParams } from "next/navigation";
 import { ProductType } from "@/types/products.types";
-
+import { getImageUrl } from "@/helpers/helpers";
 export const ProductCard = ({
   id,
   name,
@@ -51,7 +51,7 @@ export const ProductCard = ({
       <span onClick={() => setOpen(true)} className="cursor-pointer">
         <div className="bg-white rounded-lg shadow-md p-4 hover:shadow-xl transition-shadow duration-300">
           <img
-            src={image}
+            src={getImageUrl(image)}
             alt={name}
             className="w-full h-40 object-cover rounded-md mb-4"
           />
@@ -74,7 +74,7 @@ export const ProductCard = ({
         <h1 className="text-2xl font-bold text-gray-800">{name}</h1>
         <div className="mt-4 flex items-center space-x-4">
           <img
-            src={image}
+            src={getImageUrl(image)}
             alt={name}
             className="w-32 h-32 object-cover rounded-md"
           />

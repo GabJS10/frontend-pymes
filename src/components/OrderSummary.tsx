@@ -2,6 +2,7 @@
 import { CartContext } from "@/app/cart/CartProvider";
 import React, { useContext, useEffect, useState } from "react";
 import { BACKEND_URL } from "@/constants/constants";
+import { getImageUrl } from "@/helpers/helpers";
 
 const fetchShippingCost = async (id: number): Promise<number | null> => {
   try {
@@ -52,7 +53,7 @@ export const OrderSummary = () => {
             {/* Imagen del producto */}
             <div className="relative">
               <img
-                src={item.image}
+                src={getImageUrl(item.image)}
                 alt={item.name}
                 className="w-16 h-16 object-cover rounded-lg"
               />
