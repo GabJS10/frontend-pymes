@@ -191,7 +191,7 @@ export const DashboardProducts = () => {
             className="flex items-center border border-gray-200 bg-white p-5 rounded-xl shadow-lg transition duration-300 transform hover:scale-102 hover:shadow-2xl"
           >
             <img
-              src={product.image}
+              src={`https://${product.image}`}
               alt="Product"
               className="w-20 h-20 object-cover rounded-lg mr-6 transition duration-300 transform hover:scale-105"
             />
