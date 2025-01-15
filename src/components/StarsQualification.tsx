@@ -58,7 +58,7 @@ const StarRating = ({ qualification, setQualification }: Props) => {
 
       if (typeof params.id === "string") {
         if (!document.cookie.includes("user_id")) {
-          document.cookie = `user_id=${user_id}; path=/; max-age=31536000; secure; samesite=lax`;
+          document.cookie = `user_id=${user_id}; path=/; max-age=31536000; Secure; SameSite=Lax;`;
         }
         fetchQualification({
           id: params.id,
