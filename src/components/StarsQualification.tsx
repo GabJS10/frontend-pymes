@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { BACKEND_URL } from "@/constants/constants";
-import { cookies } from "next/headers";
 type Props = {
   qualification: number | null;
   setQualification: (value: number) => void;
@@ -21,12 +20,10 @@ const fetchQualification = async ({
     `${BACKEND_URL}/user-bussiness/updateRating/${id}`,
     {
       method: "PATCH",
-      credentials: "include",
       headers: {
-        Cookie: cookies().toString(),
         "Content-Type": "application/json",
       },
-
+      credentials: "include",
       body: JSON.stringify({ rating }),
     }
   );
@@ -60,8 +57,12 @@ const StarRating = ({ qualification, setQualification }: Props) => {
 
       if (typeof params.id === "string") {
         if (!document.cookie.includes("user_id")) {
-          document.cookie = `user_id=${user_id}; path=/; max-age=31536000; Secure; SameSite=Lax;`;
+          console.log(user_id);
+
+          document.cookie = `user_id=${user_id}; path=/; max-age=31536000; Secure; SameSite=None`;
         }
+        console.log("despues");
+
         fetchQualification({
           id: params.id,
           rating: selected,
