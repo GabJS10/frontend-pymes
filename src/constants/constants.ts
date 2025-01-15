@@ -1,4 +1,4 @@
-export const BACKEND_URL = "http://localhost:4000/api";
+export const BACKEND_URL = "https://backend-pymes-production.up.railway.app/api";
 
 
 export enum View {
@@ -6,3 +6,4 @@ export enum View {
     principal = "principal",
     productos = "productos",
   }
+

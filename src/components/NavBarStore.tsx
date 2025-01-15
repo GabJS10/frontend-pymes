@@ -10,6 +10,7 @@ import { IoCart } from "react-icons/io5";
 import { BACKEND_URL } from "@/constants/constants";
 import { CartContext } from "@/app/cart/CartProvider";
 import { StoresContext } from "@/app/providers/StoresProvider";
+import { getImageUrl } from "@/helpers/helpers";
 
 async function getImageProfile(id: number, token: string): Promise<string> {
   const res = await fetch(`${BACKEND_URL}/user-bussiness/imageProfile/${id}`, {
@@ -86,7 +87,11 @@ export const NavBarStore = () => {
         )}
         <div className="relative w-14 h-14 rounded-full border-2 border-teal-400 overflow-hidden shadow-lg">
           <img
-            src={profile || "/static/images/profile_base_image.png"}
+            src={
+              getImageUrl(profile).includes("static")
+                ? "/static/images/profile_base_image.png"
+                : `${getImageUrl(profile)}`
+            }
             alt="profile"
             className="w-full h-full object-cover"
           />

@@ -14,6 +14,8 @@ const fetchQualification = async ({
   id: string;
   rating: number;
 }) => {
+  console.log("probando", id, rating);
+
   const response = await fetch(
     `${BACKEND_URL}/user-bussiness/updateRating/${id}`,
     {
@@ -53,6 +55,7 @@ const StarRating = ({ qualification, setQualification }: Props) => {
   useEffect(() => {
     if (selected !== qualification) {
       const user_id = crypto.randomUUID();
+
       if (typeof params.id === "string") {
         if (!document.cookie.includes("user_id")) {
           document.cookie = `user_id=${user_id}; path=/; max-age=31536000;`;
@@ -63,7 +66,6 @@ const StarRating = ({ qualification, setQualification }: Props) => {
         }).then((data) => {
           setQualification(selected);
         });
-        console.log(document.cookie);
       } else {
         console.error("Invalid id format");
       }

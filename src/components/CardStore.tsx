@@ -1,3 +1,4 @@
+import { getImageUrl } from "@/helpers/helpers";
 import React from "react";
 
 type Props = {
@@ -20,7 +21,7 @@ export const CardStore = ({ store }: Props) => {
     >
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <img
-          src={store.image || "https://placehold.co/300"}
+          src={getImageUrl(store.image) || "https://placehold.co/300"}
           alt={store.nameStore}
           className="w-full h-48 object-cover"
         />

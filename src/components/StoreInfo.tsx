@@ -4,6 +4,7 @@ import { Modal } from "./Modal";
 import StarRating from "./StarsQualification";
 import { BACKEND_URL } from "@/constants/constants";
 import { useParams } from "next/navigation";
+import { getImageUrl } from "@/helpers/helpers";
 interface StoreInfoProps {
   name: string;
   description: string;
@@ -69,6 +70,8 @@ export const StoreInfo = ({
   }, []);
 
   useEffect(() => {
+    console.log(document.cookie);
+
     console.log(userQualification);
   }, [userQualification]);
 
@@ -78,7 +81,7 @@ export const StoreInfo = ({
         {/* Imagen de fondo */}
         <div className="h-40 w-full rounded-lg overflow-hidden">
           <img
-            src={backgroundImage}
+            src={getImageUrl(backgroundImage)}
             alt="Store background"
             className="object-cover w-full h-full"
           />
@@ -87,7 +90,7 @@ export const StoreInfo = ({
         {/* Imagen redondeada encima de la imagen de fondo */}
         <div className="absolute top-24 left-1/2 transform -translate-x-1/2 rounded-full border-4 border-white">
           <img
-            src={logoImage}
+            src={getImageUrl(logoImage)}
             alt="Store logo"
             className="w-24 h-24 rounded-full object-cover"
           />

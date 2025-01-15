@@ -41,7 +41,7 @@ export const NavBar = () => {
               <a href="/register">Crea tu cuenta de negocio</a>
             </li>
             <li>
-              <a href="#">Crea tu cuenta de cliente</a>
+              <a href="/singIn">Ingresa a tu cuenta bussiness</a>
             </li>
           </ul>
         </div>

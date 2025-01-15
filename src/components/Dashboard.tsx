@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import LoadingSpinner from "./LoadingSpinner";
 import { NavBarStore } from "./NavBarStore";
 import { Footer } from "./Footer";
+import { getImageUrl } from "@/helpers/helpers";
 //fetch user data
 
 const fetchUserData = async (
@@ -27,11 +28,13 @@ const fetchUserData = async (
 export const Dashboard = () => {
   const [view, setView] = React.useState<View>(View.profile);
   const [data, setData] = React.useState<Partial<UserBussines> | null>(null);
-  const [image_profile, setImageProfile] = React.useState<string>(
-    "static/images/profile_base_image.png"
-  );
+  const [image_profile, setImageProfile] = React.useState<string>();
   const [loading, setLoading] = React.useState(false);
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    console.log("image_profile", image_profile);
+  }, [image_profile]);
 
   useEffect(() => {
     //use the getSession function from NextAuth
@@ -74,7 +77,7 @@ export const Dashboard = () => {
           <div className="w-1/4 bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center mb-6">
               <img
-                src={image_profile}
+                src={getImageUrl(image_profile)}
                 alt="Profile"
                 className="w-16 h-16 rounded-full object-cover shadow"
               />

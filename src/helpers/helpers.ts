@@ -82,4 +82,8 @@ function filterProductsBySection(products: ProductType[], section: string[]) {
 } 
  
 
-export { getProfileData , getPrincipalData , sendWhatsapp, filterProductsBySection };
+
+function getImageUrl(url:string | undefined | null) {
+    return `https://${url}`;
+}
+export { getImageUrl, getProfileData , getPrincipalData , sendWhatsapp, filterProductsBySection };

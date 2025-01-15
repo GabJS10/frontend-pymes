@@ -30,11 +30,12 @@ enum Action {
   UPDATE = "update",
 }
 
-const getSections = async () => {
-  const response = await fetch(`${BACKEND_URL}/sections/${1}`, {
+const getSections = async (token: string) => {
+  const response = await fetch(`${BACKEND_URL}/sections/`, {
     method: "GET",
     cache: "no-store",
     headers: {
+      Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
   });
@@ -61,8 +62,10 @@ export const FormProduct = ({
 
   useEffect(() => {
     const ThisGetSections = async () => {
-      const sections = await getSections();
-      setSections(sections);
+      if (session) {
+        const sections = await getSections(session.backendTokens.token);
+        setSections(sections);
+      }
     };
 
     ThisGetSections();
@@ -120,7 +123,7 @@ export const FormProduct = ({
         "image",
         typeof data.image[0] === "object" ? data.image[0] : data.image
       );
-      formData.append("sections_id", data.section.toString());
+      formData.append("sections_id", data.section?.toString() ?? "");
       const url = `${BACKEND_URL}/products/`;
 
       const res = await fetch(`${url}${action === Action.CREATE ? "" : id}`, {
