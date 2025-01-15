@@ -1,5 +1,7 @@
-import _NextAuth from "next-auth";
-import { _JWT } from "next-auth/jwt";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import NextAuth from "next-auth";
+import { JWT } from "next-auth/jwt";
+/* eslint-enable @typescript-eslint/no-unused-vars */
 
 enum Roles {
     ADMIN = 'ADMIN',
