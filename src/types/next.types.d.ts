@@ -1,5 +1,5 @@
-import NextAuth from "next-auth";
-import { JWT } from "next-auth/jwt";
+import _NextAuth from "next-auth";
+import { _JWT } from "next-auth/jwt";
 
 enum Roles {
     ADMIN = 'ADMIN',

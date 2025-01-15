@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
                 email: { label: "Email", type: "email", placeholder: "email" },
                 password: {  label: "Password", type: "password" }
             },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 if(!credentials?.email || !credentials?.password) return null
                 
                 const res = await fetch(`${BACKEND_URL}/auth/login/`, {

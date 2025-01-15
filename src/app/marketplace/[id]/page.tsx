@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants/constants";
-import { UserBussines, store } from "@/types/user_bussines.types";
+import { store } from "@/types/user_bussines.types";
 import { ProductType } from "@/types/products.types";
 import { MarketplaceBody } from "@/components/MarketplaceBody";
 const fetchStore = async (id: number): Promise<store> => {

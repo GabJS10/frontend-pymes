@@ -1,21 +1,7 @@
 "use client";
 import { CardStore } from "./CardStore";
-import { BACKEND_URL } from "@/constants/constants";
-import { UserBussines } from "@/types/user_bussines.types";
 import { StoresContext } from "@/app/providers/StoresProvider";
 import { useContext } from "react";
-
-async function getData(): Promise<UserBussines[]> {
-  const res = await fetch(`${BACKEND_URL}/user-bussiness`, {
-    cache: "no-cache",
-  });
-
-  if (!res.ok) {
-    console.log(res);
-  }
-
-  return await res.json();
-}
 
 export const GridStores = () => {
   const { stores } = useContext(StoresContext);

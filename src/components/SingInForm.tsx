@@ -31,7 +31,7 @@ export const SingInForm = () => {
       if (res?.ok) {
         router.refresh();
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error("Error al iniciar sesion");
     } finally {
       setLoading(false);

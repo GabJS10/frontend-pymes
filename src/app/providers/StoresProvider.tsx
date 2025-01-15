@@ -7,7 +7,7 @@ import { BACKEND_URL } from "@/constants/constants";
 export const StoresContext = createContext({
   query: "",
   stores: [] as UserBussines[],
-  handleQuery: (query: string) => {},
+  handleQuery: (_query: string) => {},
 });
 
 export const StoresProvider = ({ children }: { children: React.ReactNode }) => {

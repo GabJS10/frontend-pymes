@@ -63,7 +63,7 @@ const StarRating = ({ qualification, setQualification }: Props) => {
         fetchQualification({
           id: params.id,
           rating: selected,
-        }).then((data) => {
+        }).then((_data) => {
           setQualification(selected);
         });
       } else {

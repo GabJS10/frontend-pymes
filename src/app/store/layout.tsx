@@ -1,7 +1,5 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
-import { NavBarStore } from "@/components/NavBarStore";
-import { Footer } from "@/components/Footer";
 export default async function StoreLayout({
   children,
 }: {

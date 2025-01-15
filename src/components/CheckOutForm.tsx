@@ -5,7 +5,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { FormDataBuy } from "@/types/form.register.types";
 import { CartContext } from "@/app/cart/CartProvider";
 import { BACKEND_URL } from "@/constants/constants";
-import toast from "react-hot-toast";
 const fetchWhatsappNumber = async (id: number): Promise<string | null> => {
   try {
     const response = await fetch(
@@ -25,12 +24,8 @@ export const CheckOutForm = () => {
   const [whatsapp, setWhatsapp] = useState<string | null>(null);
   const { cart } = useContext(CartContext);
   const onSubmit: SubmitHandler<FormDataBuy> = async (data) => {
-    try {
-      if (whatsapp) {
-        sendWhatsapp(whatsapp, cart, data);
-      }
-    } catch (error: any) {
-      toast.error(error);
+    if (whatsapp) {
+      sendWhatsapp(whatsapp, cart, data);
     }
   };
 

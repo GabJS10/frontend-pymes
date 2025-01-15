@@ -1,9 +1,9 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Modal } from "./Modal";
 import { IoMdAddCircle } from "react-icons/io";
 import { CiCircleRemove } from "react-icons/ci";
-import { Item, addToCart } from "@/app/cart/action";
+import { Item } from "@/app/cart/action";
 import { CartContext } from "@/app/cart/CartProvider";
 import { useParams } from "next/navigation";
 import { ProductType } from "@/types/products.types";

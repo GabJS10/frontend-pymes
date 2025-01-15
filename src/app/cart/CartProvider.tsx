@@ -4,7 +4,6 @@ import React, { createContext, useState, useEffect } from "react";
 import {
   Cart,
   getCart,
-  setCart as setTheCart,
   addToCart,
   Item,
   removeFromCart as removeTheCart,
@@ -15,9 +14,9 @@ import { usePathname } from "next/navigation";
 
 export const CartContext = createContext({
   cart: {} as Cart | null,
-  addCart: (idStore: number, item: Item) => {},
-  removeCart: (idStore: number, item: Item) => {},
-  removeOneElementFromTheCart: (idStore: number, item: Item) => {},
+  addCart: (_idStore: number, _item: Item) => {},
+  removeCart: (_idStore: number, _item: Item) => {},
+  removeOneElementFromTheCart: (_idStore: number, _item: Item) => {},
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {

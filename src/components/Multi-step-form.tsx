@@ -6,7 +6,7 @@ import { Form1 } from "./Form1";
 import { Form2 } from "./Form2";
 import { Form3 } from "./Form3";
 import { BACKEND_URL } from "@/constants/constants";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const errorsFormDefault: InputsErrors = {
   emptyForm1: true,
@@ -113,7 +113,7 @@ export const MultiStepForm = () => {
   };
 
   useEffect(() => {
-    const subscription = watch((value, { name }) => {
+    const subscription = watch((_value) => {
       validationsForm();
     });
 

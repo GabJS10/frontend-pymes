@@ -1,5 +1,5 @@
 import { BACKEND_URL } from "@/constants/constants";
-import React, { useState, useRef, useEffect, use } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Section, Sections } from "@/types/products.types";
 import toast from "react-hot-toast";
