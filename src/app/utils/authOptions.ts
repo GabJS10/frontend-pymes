@@ -23,7 +23,7 @@ async function getNewToken(token:JWT) {
     
 }
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     providers: [
         CredentialsProvider({
@@ -94,3 +94,5 @@ export const authOptions: NextAuthOptions = {
         signIn: '/singIn',
     }
 }
+
+export { authOptions }
