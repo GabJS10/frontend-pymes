@@ -22,11 +22,13 @@ async function getQualification(
   id: number,
   user_id: string
 ): Promise<{ qualification: number }> {
-  const res = await fetch(`${BACKEND_URL}/user-bussiness/rating/${id}`, {
-    cache: "no-cache",
-    credentials: "include",
-    body: JSON.stringify({ user_id }),
-  });
+  const res = await fetch(
+    `${BACKEND_URL}/user-bussiness/rating/${id}?user_id=${user_id}`,
+    {
+      cache: "no-cache",
+      credentials: "include",
+    }
+  );
 
   if (!res.ok) {
     console.log(res);
