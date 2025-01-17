@@ -21,11 +21,10 @@ const fetchQualification = async ({
     {
       method: "PATCH",
       headers: {
-        Cookie: `${document.cookie}`,
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ rating }),
+      body: JSON.stringify({ rating, user_id: document.cookie }),
     }
   );
 
@@ -58,11 +57,8 @@ const StarRating = ({ qualification, setQualification }: Props) => {
 
       if (typeof params.id === "string") {
         if (!document.cookie.includes("user_id")) {
-          console.log(user_id);
-
-          document.cookie = `user_id=${user_id}; path=/; max-age=31536000; Secure; SameSite=None`;
+          document.cookie = `user_id=${user_id}; path=/; max-age=31536000;`;
         }
-        console.log("despues");
 
         fetchQualification({
           id: params.id,

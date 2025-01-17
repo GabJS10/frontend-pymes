@@ -19,11 +19,13 @@ interface StoreInfoProps {
 }
 
 async function getQualification(
-  id: number
+  id: number,
+  user_id: string
 ): Promise<{ qualification: number }> {
   const res = await fetch(`${BACKEND_URL}/user-bussiness/rating/${id}`, {
     cache: "no-cache",
     credentials: "include",
+    body: JSON.stringify({ user_id }),
   });
 
   if (!res.ok) {
@@ -60,7 +62,10 @@ export const StoreInfo = ({
 
   useEffect(() => {
     const fetchQualifications = async () => {
-      const qualification = await getQualification(Number(params.id));
+      const qualification = await getQualification(
+        Number(params.id),
+        document.cookie
+      );
       setUserQualification(qualification.qualification);
     };
 
